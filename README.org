@@ -1,0 +1,2 @@
+* uni haskell notes
+Doing things in haskell for educational purposes.
