@@ -1,6 +1,9 @@
+import Data.List
+
 main :: IO ()
 main = do
-    print $ havelHakimi [4, 4, 2, 2, 1]
+    print $ havelHakimi [2, 2, 4, 3, 3, 2, 3, 5]
+    print $ havelHakimi [2, 2, 4, 3, 3, 2, 3, 5, 1]
 
 cartesian :: [a] -> [b] -> [(a,b)]
 cartesian ai bi = concat [[(a, b) | b <- bi] | a <- ai]
@@ -28,20 +31,16 @@ optimizedPow n p = case mod p 2 of
 
 
 havelHakimi :: [Int] -> Bool
-havelHakimi l
- | not (maxS <= length l + (-1)) = False
+havelHakimi s
+ | not (maxS <= length s + (-1)) = False
  | otherwise = ((==0)
     . last . last
-    . take (length l)
-    . iterate (\x -> applySub (tail x) (head x))) l
+    . take (length s)
+    . iterate ( sort'
+        . (\x -> applySub (tail x) (head x))
+    )) (sort' s)
 
     where
-        applySub :: [Int] -> Int -> [Int]
-        applySub x n = map naturalSub (take n x) ++ drop n x
-
-        naturalSub :: Int -> Int
-        naturalSub 0 = 0
-        naturalSub x = x - 1
-
-        maxS :: Int
-        maxS = foldl (max) 0 l
+        applySub x n = map (+(-1)) (take n x) ++ drop n x
+        sort' = sortBy (flip compare)
+        maxS = foldl max 0 s
