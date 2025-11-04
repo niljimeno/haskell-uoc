@@ -4,6 +4,7 @@ main :: IO ()
 main = do
     print $ havelHakimi [2, 2, 4, 3, 3, 2, 3, 5]
     print $ havelHakimi [2, 2, 4, 3, 3, 2, 3, 5, 1]
+    print $ fst (2, 0)
 
 cartesian :: [a] -> [b] -> [(a,b)]
 cartesian ai bi = concat [[(a, b) | b <- bi] | a <- ai]
